@@ -72,6 +72,42 @@ def decade_label(year):
             return "старые"
 
 
+# Этап 3
+def not_comedy_movies(movies):
+    """Выводит названия фильмов, кроме комедий"""
+    for movie in movies:
+        if "comedy" in movie["genres"]:
+            continue
+        print(movie["title"])
+
+
+def find_first_masterpiece(movies):
+    """Находит первый фильм с рейтингом выше 9.0"""
+    index = 0
+
+    while index < len(movies):
+        movie = movies[index]
+
+        if movie["rating"] > 9.0:
+            print("Найден шедевр:", movie["title"])
+            break
+
+        index += 1
+    else:
+        print("Шедевров не найдено")
+
+
+def count_long_movies(movies, threshold=120):
+    """Считает количество фильмов длиннее указанного числа"""
+    count = 0
+
+    for movie in movies:
+        if movie["duration_min"] > threshold:
+            count += 1
+
+    return count
+
+
 if __name__ == "__main__":
     # Проверка первого этапа
     print("Средний рейтинг:", average_rating(movies))
@@ -83,8 +119,19 @@ if __name__ == "__main__":
     print("Рейтинг 8.6:", rating_tier(8.6))
     print("Рейтинг 6.4:", rating_tier(6.4))
     print("Рейтинг 4.8:", rating_tier(4.8))
-
     print("Год 2021:", decade_label(2021))
     print("Год 2020:", decade_label(2020))
     print("Год 2015:", decade_label(2015))
     print("Год 2014:", decade_label(2014))
+
+    # Проверка третьего этапа
+    print("\nФильмы без жанра comedy:")
+    not_comedy_movies(movies)
+    print("\nПоиск шедевра в полном каталоге:")
+    find_first_masterpiece(movies)
+    print("\nПоиск шедевра в сокращённом каталоге:")
+    find_first_masterpiece(movies[:7])
+    print("\nКоличество длинных фильмов:")
+    print("Длиннее 120 минут:", count_long_movies(movies))
+    print("Длиннее 150 минут:", count_long_movies(movies, 150))
+    print("Длиннее 200 минут:", count_long_movies(movies, 200))
