@@ -141,6 +141,39 @@ def format_report_line(movie):
     )
 
 
+# Этап 5
+def titles_sorted_by_rating(movies):
+    """Возвращает названия фильмов по убыванию рейтинга"""
+    sorted_movies = sorted(
+        movies,
+        key=lambda movie: movie["rating"],
+        reverse=True,
+    )
+
+    titles = []
+
+    for movie in sorted_movies:
+        titles.append(movie["title"])
+
+    return titles
+
+
+def top_n_by_rating(movies, n=3):
+    """Возвращает топ-N фильмов в виде списка кортежей"""
+    sorted_movies = sorted(
+        movies,
+        key=lambda movie: movie["rating"],
+        reverse=True,
+    )
+
+    top_movies = []
+
+    for movie in sorted_movies[:n]:
+        top_movies.append((movie["title"], movie["rating"]))
+
+    return top_movies
+
+
 if __name__ == "__main__":
     # Проверка первого этапа
     print("Средний рейтинг:", average_rating(movies))
@@ -186,3 +219,15 @@ if __name__ == "__main__":
     print(format_report_line(movies[7]))
     print(format_report_line(movies[5]))
     print(format_report_line(movies[0]))
+
+    # Проверка пятого этапа
+    print("\nНазвания по убыванию рейтинга:")
+    for title in titles_sorted_by_rating(movies):
+        print(title)
+
+    print("\nТоп-3 фильма:")
+    print(top_n_by_rating(movies, 3))
+    print("\nТоп-5 фильмов:")
+    print(top_n_by_rating(movies, 5))
+    print("\nЛучший фильм:")
+    print(top_n_by_rating(movies, 1))
