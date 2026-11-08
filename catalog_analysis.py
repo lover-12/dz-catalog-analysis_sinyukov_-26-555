@@ -22,13 +22,16 @@ movies = [
     {"title": "Red Harbor", "year": 2018, "genres": {"action", "thriller"},
      "rating": 7.3, "duration_min": 129, "actors": ["P. Diaz", "T. Chalamet"]},
 ]
+
 def average_rating(movies):
+    """Возвращает средний рейтинг фильмов с округлением до одного знака"""
     total_rating = sum(movie["rating"] for movie in movies)
     average = total_rating / len(movies)
     return round(average, 1)
 
 
 def catalog_age_stats(movies, current_year=2026):
+    """Возвращает максимальный, минимальный и средний возраст фильмов"""
     ages = [current_year - movie["year"] for movie in movies]
 
     oldest = max(ages)
@@ -39,12 +42,14 @@ def catalog_age_stats(movies, current_year=2026):
 
 
 def duration_in_hours(minutes):
+    """Переводит минуты в строку с часами и минутами"""
     hours= minutes // 60
     r_minutes = minutes % 60
 
     return f"{hours}ч {r_minutes}м"
 
 
-print("Средний рейтинг:", average_rating(movies))
-print("Возраст каталога:", catalog_age_stats(movies))
-print("Продолжительность:", duration_in_hours(155))
+if __name__ == "__main__":
+    print("Средний рейтинг:", average_rating(movies))
+    print("Статистика возраста:", catalog_age_stats(movies))
+    print("Продолжительность:", duration_in_hours(155))
